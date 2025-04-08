@@ -106,3 +106,4 @@ int main() {
 ![Screenshot 2025-04-08 144005](https://github.com/user-attachments/assets/b8a65cfc-f031-4140-8ffc-ac39b041c8b0)
 
 ## RESULT
+The above code is executed successfully.
