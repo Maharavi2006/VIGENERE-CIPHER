@@ -1,7 +1,6 @@
 # VIGENERE-CIPHER
-## EX. NO: 4
-## NAME: INFANTINA MARIA L
-## REG NO: 212223100013
+## EX. NO: 1(D)
+ 
 
 ## IMPLEMETATION OF VIGENERE CIPHER
  
@@ -31,79 +30,63 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 
 ## PROGRAM
+
 ```
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h>
-
-// Function to encrypt the text using Vigenère cipher
-void encrypt(char* plaintext, char* key, char* ciphertext) {
-    int textLen = strlen(plaintext);
+// Function to perform Vigenere encryption
+void vigenereEncrypt(char *text, const char *key) {
+    int textLen = strlen(text);
     int keyLen = strlen(key);
-
-    for (int i = 0, j = 0; i < textLen; i++) {
-        char p = plaintext[i];
-
-        if (isalpha(p)) {
-            char base = isupper(p) ? 'A' : 'a';
-            char k = tolower(key[j % keyLen]) - 'a';
-            ciphertext[i] = (p - base + k) % 26 + base;
-            j++;
-        } else {
-            ciphertext[i] = p; // keep non-alphabetic characters as-is
+    for (int i = 0; i < textLen; i++) {
+        char c = text[i];
+        if (c >= 'A' && c <= 'Z') {
+            // Encrypt uppercase letters
+            text[i] = ((c - 'A' + key[i % keyLen] - 'A') % 26) + 'A';
+        } else if (c >= 'a' && c <= 'z') {
+            // Encrypt lowercase letters
+            text[i] = ((c - 'a' + key[i % keyLen] - 'A') % 26) + 'a';
         }
     }
-
-    ciphertext[textLen] = '\0';
 }
-
-// Function to decrypt the text using Vigenère cipher
-void decrypt(char* ciphertext, char* key, char* plaintext) {
-    int textLen = strlen(ciphertext);
+// Function to perform Vigenere decryption
+void vigenereDecrypt(char *text, const char *key) {
+    int textLen = strlen(text);
     int keyLen = strlen(key);
+    for (int i = 0; i < textLen; i++) {
+        char c = text[i];
 
-    for (int i = 0, j = 0; i < textLen; i++) {
-        char c = ciphertext[i];
-
-        if (isalpha(c)) {
-            char base = isupper(c) ? 'A' : 'a';
-            char k = tolower(key[j % keyLen]) - 'a';
-            plaintext[i] = (c - base - k + 26) % 26 + base;
-            j++;
-        } else {
-            plaintext[i] = c; // keep non-alphabetic characters as-is
+        if (c >= 'A' && c <= 'Z') {
+            // Decrypt uppercase letters
+            text[i] = ((c - 'A' - (key[i % keyLen] - 'A') + 26) % 26) + 'A';
+        } else if (c >= 'a' && c <= 'z') {
+            // Decrypt lowercase letters
+            text[i] = ((c - 'a' - (key[i % keyLen] - 'A') + 26) % 26) + 'a';
         }
     }
-
-    plaintext[textLen] = '\0';
 }
-
 int main() {
-    char plaintext[1024];
-    char key[1024];
-    char ciphertext[1024];
-    char decrypted[1024];
-
-    printf("Enter plaintext: ");
-    fgets(plaintext, sizeof(plaintext), stdin);
-    plaintext[strcspn(plaintext, "\n")] = '\0'; // remove newline
-
-    printf("Enter key (alphabetic only): ");
-    fgets(key, sizeof(key), stdin);
-    key[strcspn(key, "\n")] = '\0'; // remove newline
-
-    encrypt(plaintext, key, ciphertext);
-    printf("Encrypted text: %s\n", ciphertext);
-
-    decrypt(ciphertext, key, decrypted);
-    printf("Decrypted text: %s\n", decrypted);
-
+    const char *key = "VAR"; 
+    char message[] = "saveethaengineeringcollege";
+    printf("Simulating Vigenere Cipher:\n");
+    // Print the original plain text
+    printf("Original Message: %s\n", message);
+    // Print the key used
+    printf("Key: %s\n", key);
+    // Encrypt the message
+    vigenereEncrypt(message, key);
+    printf("Encrypted Message: %s\n", message);
+    // Decrypt the message back to the original
+    vigenereDecrypt(message, key);
+    printf("Decrypted Message: %s\n", message);
     return 0;
 }
 ```
-
 ## OUTPUT
-![Screenshot 2025-04-08 144005](https://github.com/user-attachments/assets/b8a65cfc-f031-4140-8ffc-ac39b041c8b0)
+
+
+![image](https://github.com/user-attachments/assets/64479558-d2a2-410b-bab8-731ccda89608)
 
 ## RESULT
-The above code is executed successfully.
+
+The program is executed successfully
